@@ -1,0 +1,5 @@
+opencv-python
+mediapipe
+pyautogui
+pyobjc-framework-Quartz
+pynput
