@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AirTouch — The Invisible Trackpad for Mac</title>
+<meta name="description" content="AirTouch gives your Mac contactless gesture control. Move cursor, click, drag, scroll, and adjust volume or brightness using your webcam. Designed for macOS.">
+<meta name="color-scheme" content="dark light">
+<style>
+  :root {
+    --bg-page: #000000;
+    --bg-card: rgba(22, 22, 26, 0.75);
+    --bg-card-hover: rgba(30, 30, 36, 0.85);
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --border-highlight: rgba(255, 255, 255, 0.22);
+    --text-primary: #f5f5f7;
+    --text-secondary: #86868b;
+    --text-tertiary: #6e6e73;
+    --apple-blue: #2997ff;
+    --apple-blue-hover: #147ce5;
+    --apple-blue-glow: rgba(41, 151, 255, 0.35);
+    --apple-green: #30d158;
+    --apple-orange: #ff9f0a;
+    --nav-bg: rgba(0, 0, 0, 0.72);
+    --code-bg: #0d0e12;
+    --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg-page: #fbfbfd;
+      --bg-card: rgba(255, 255, 255, 0.8);
+      --bg-card-hover: rgba(255, 255, 255, 0.95);
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --border-highlight: rgba(0, 0, 0, 0.16);
+      --text-primary: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-tertiary: #86868b;
+      --apple-blue: #0071e3;
+      --apple-blue-hover: #0077ed;
+      --apple-blue-glow: rgba(0, 113, 227, 0.2);
+      --nav-bg: rgba(255, 255, 255, 0.75);
+      --code-bg: #f5f5f7;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-stack);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* Apple Sticky Nav */
+  header.nav-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--nav-bg);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background 0.3s;
+  }
+
+  .nav-bar {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-logo svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    font-size: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-links a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+
+  .nav-btn {
+    background: var(--apple-blue);
+    color: #ffffff !important;
+    padding: 0.35rem 0.85rem;
+    border-radius: 980px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-btn:hover {
+    background: var(--apple-blue-hover);
+    transform: scale(1.03);
+  }
+
+  /* Container */
+  .container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 6.5rem 0 4.5rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--apple-blue);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.8rem, 7.5vw, 5.2rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.03;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-headline span.gradient {
+    background: linear-gradient(135deg, #ffffff 0%, #a1a1a6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  @media (prefers-color-scheme: light) {
+    .hero-headline span.gradient {
+      background: linear-gradient(135deg, #1d1d1f 0%, #515154 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .hero-subhead {
+    font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    max-width: 44rem;
+    margin: 0 auto 2.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-ctas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+
+  .btn-apple {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: 980px;
+    font-size: 1.02rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--apple-blue);
+    color: #ffffff;
+    box-shadow: 0 4px 18px var(--apple-blue-glow);
+  }
+  .btn-primary:hover {
+    background: var(--apple-blue-hover);
+    box-shadow: 0 6px 26px var(--apple-blue-glow);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(12px);
+  }
+  .btn-secondary:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-highlight);
+    transform: translateY(-1px);
+  }
+
+  .hero-badge-row {
+    font-size: 0.82rem;
+    color: var(--text-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Interactive Hero Showcase Window */
+  .macbook-canvas {
+    margin: 3.5rem auto 1rem;
+    position: relative;
+    max-width: 860px;
+    aspect-ratio: 16 / 10;
+    background: radial-gradient(circle at 50% 30%, #1c1d24 0%, #08090c 80%);
+    border-radius: 1.25rem;
+    border: 1px solid var(--border-highlight);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  @media (prefers-color-scheme: light) {
+    .macbook-canvas {
+      background: radial-gradient(circle at 50% 30%, #f0f3fa 0%, #e2e6f0 80%);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  .canvas-menu-bar {
+    height: 32px;
+    background: rgba(0, 0, 0, 0.35);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .canvas-traffic-lights {
+    display: flex;
+    gap: 6px;
+  }
+  .light {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .light.red { background: #ff5f57; }
+  .light.yellow { background: #febc2e; }
+  .light.green { background: #28c840; }
+
+  .canvas-stage {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Simulated Hand Tracking Skeleton & Cursor */
+  .hand-simulation {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tracking-ring {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    border: 2px dashed var(--apple-blue);
+    border-radius: 50%;
+    animation: rotateRing 14s linear infinite;
+    opacity: 0.8;
+  }
+
+  .anchor-lock-indicator {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--apple-green);
+    border-radius: 50%;
+    background: rgba(48, 209, 88, 0.2);
+    box-shadow: 0 0 16px var(--apple-green);
+    animation: pulseLock 2.4s ease-in-out infinite;
+  }
+
+  .virtual-cursor {
+    position: absolute;
+    top: 36%;
+    left: 48%;
+    width: 18px;
+    height: 26px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+  }
+
+  .simulated-hud-pill {
+    position: absolute;
+    bottom: 1.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-subtle);
+    padding: 0.5rem 1rem;
+    border-radius: 980px;
+    font-size: 0.78rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--apple-green);
+    box-shadow: 0 0 8px var(--apple-green);
+  }
+
+  @keyframes rotateRing {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulseLock {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.18); opacity: 1; }
+  }
+
+  /* Bento Grid Section */
+  section.apple-section {
+    padding: 6.5rem 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .section-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--apple-blue);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin-bottom: 1rem;
+  }
+
+  .section-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 38rem;
+    margin-bottom: 3.5rem;
+    line-height: 1.45;
+  }
+
+  .bento-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .bento-cell {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.3s, transform 0.2s;
+    backdrop-filter: blur(12px);
+  }
+  .bento-cell:hover {
+    border-color: var(--border-highlight);
+    transform: translateY(-2px);
+  }
+
+  .bento-cell.col-8 { grid-column: span 8; }
+  .bento-cell.col-4 { grid-column: span 4; }
+  .bento-cell.col-6 { grid-column: span 6; }
+  .bento-cell.col-12 { grid-column: span 12; }
+
+  @media (max-width: 820px) {
+    .bento-cell.col-8,
+    .bento-cell.col-4,
+    .bento-cell.col-6,
+    .bento-cell.col-12 {
+      grid-column: span 12;
+    }
+  }
+
+  .bento-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .bento-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    line-height: 1.15;
+  }
+
+  .bento-desc {
+    color: var(--text-secondary);
+    font-size: 1.02rem;
+    line-height: 1.5;
+  }
+
+  .bento-visual {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Gestures Gallery */
+  .gestures-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .gesture-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 1.25rem;
+    padding: 1.8rem;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(10px);
+  }
+  .gesture-card:hover {
+    border-color: rgba(41, 151, 255, 0.4);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+
+  .gesture-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .gesture-emoji {
+    font-size: 2.4rem;
+    line-height: 1;
+  }
+
+  .gesture-tag {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 980px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .gesture-card h3 {
+    font-size: 1.22rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+
+  .gesture-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Segmented Installation Control (Apple Segmented Style) */
+  .segmented-switch-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .segmented-control {
+    background: rgba(120, 120, 128, 0.16);
+    padding: 3px;
+    border-radius: 980px;
+    display: inline-flex;
+    gap: 3px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .segmented-btn {
+    padding: 0.5rem 1.4rem;
+    border-radius: 980px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .segmented-btn.active {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  }
+
+  .tab-pane {
+    display: none;
+  }
+  .tab-pane.active {
+    display: block;
+  }
+
+  /* DMG Installer View */
+  .dmg-showcase {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 1.5rem;
+    padding: 3.5rem 2rem;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+    backdrop-filter: blur(12px);
+  }
+
+  .dmg-drag-graphic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem auto 2.5rem;
+  }
+
+  .app-icon-box {
+    width: 88px;
+    height: 88px;
+    background: linear-gradient(135deg, #0A84FF, #5E5CE6);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
+    box-shadow: 0 12px 32px var(--apple-blue-glow);
+  }
+
+  .app-folder-box {
+    width: 88px;
+    height: 88px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px dashed var(--border-highlight);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--text-secondary);
+  }
+  .app-folder-box span { font-size: 0.7rem; margin-top: 0.25rem; font-weight: 500; }
+
+  .drag-arrow {
+    font-size: 1.6rem;
+    color: var(--text-tertiary);
+  }
+
+  /* Terminal Code Block */
+  .terminal-box {
+    background: var(--code-bg);
+    border: 1px solid var(--border-highlight);
+    border-radius: 1.25rem;
+    max-width: 720px;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .terminal-header {
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.75rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .terminal-title {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    font-family: ui-monospace, Menlo, monospace;
+  }
+
+  .terminal-content {
+    padding: 1.5rem;
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+  }
+
+  .comment { color: var(--text-tertiary); }
+  .cmd { color: var(--apple-blue); }
+
+  .copy-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .copy-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Tech Specs */
+  .specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+  }
+
+  .specs-table tr {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .specs-table td {
+    padding: 1.25rem 0;
+    vertical-align: top;
+    font-size: 1rem;
+  }
+
+  .specs-table td:first-child {
+    width: 32%;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .specs-table td:last-child {
+    color: var(--text-primary);
+  }
+
+  /* Apple Footer */
+  footer.apple-footer {
+    padding: 4rem 0 3rem;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 0.78rem;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+  }
+
+  .footer-notes {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .footer-links a:hover { color: var(--text-primary); }
+</style>
+</head>
+<body>
+
+<!-- Apple Glass Navigation Bar -->
+<header class="nav-wrapper">
+  <div class="nav-bar">
+    <a href="#" class="nav-logo">
+      AirTouch
+    </a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#gestures">Gestures</a>
+      <a href="#technology">Technology</a>
+      <a href="#specs">Tech Specs</a>
+      <a href="#install" class="nav-btn">Download</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <!-- Hero -->
+  <header class="hero" id="overview">
+    <div class="hero-eyebrow">AirTouch for macOS</div>
+    <h1 class="hero-headline">
+      Look. Point. Touch.<br>
+      <span class="gradient">Magic in the air.</span>
+    </h1>
+    <p class="hero-subhead">
+      The invisible trackpad for Mac. Effortlessly glide your cursor, tap to click, drag windows, and slide through Spaces using the camera already built into your Mac.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#install" class="btn-apple btn-primary" onclick="switchTab('dmg')">
+        Download AirTouch (.dmg)
+      </a>
+      <a href="#install" class="btn-apple btn-secondary" onclick="switchTab('terminal')">
+        <span>&gt;_</span> Run with Terminal
+      </a>
+    </div>
+
+    <div class="hero-badge-row">
+      <span>Apple Silicon &amp; Intel</span>
+      <span>&bull;</span>
+      <span>100% On-Device Privacy</span>
+      <span>&bull;</span>
+      <span>macOS Sonoma &amp; Sequoia</span>
+    </div>
+
+    <!-- Interactive Simulated Mac Display -->
+    <div class="macbook-canvas" aria-hidden="true">
+      <div class="canvas-menu-bar">
+        <div class="canvas-traffic-lights">
+          <span class="light red"></span>
+          <span class="light yellow"></span>
+          <span class="light green"></span>
+        </div>
+        <div>AirTouch Active &bull; 60 FPS</div>
+        <div>Camera ON</div>
+      </div>
+      <div class="canvas-stage">
+        <div class="hand-simulation">
+          <div class="tracking-ring"></div>
+          <div class="anchor-lock-indicator"></div>
+          <svg class="virtual-cursor" viewBox="0 0 24 24" fill="none">
+            <path d="M4 3L19 12L12 14L8 21L4 3Z" fill="white" stroke="black" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="simulated-hud-pill">
+          <span class="status-dot"></span>
+          <span>Anchor Lock Engaged &bull; Ready to Click</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Bento Section: Why AirTouch -->
+  <section class="apple-section" id="technology">
+    <div class="section-label">Engineering</div>
+    <h2 class="section-title">Designed for Mac.<br>From the ground up.</h2>
+    <p class="section-description">
+      Every millisecond counts. AirTouch combines low-level macOS Quartz events with machine learning for an experience that feels instantaneous.
+    </p>
+
+    <div class="bento-grid">
+      <!-- Bento 1: No Hardware -->
+      <div class="bento-cell col-8">
+        <div>
+          <div class="bento-eyebrow">Zero Friction</div>
+          <div class="bento-title">No accessories. No pairing. Just your hands.</div>
+          <p class="bento-desc">
+            Unlike VR gloves or external sensors, AirTouch works with your MacBook’s built-in FaceTime HD camera or Studio Display. Wave your hand, and you are in control.
+          </p>
+        </div>
+        <div class="bento-visual">
+          <span style="font-size: 3.5rem;">💻 🖐️ ✨</span>
+        </div>
+      </div>
+
+      <!-- Bento 2: Anchor Lock -->
+      <div class="bento-cell col-4">
+        <div>
+          <div class="bento-eyebrow">Patented Feel</div>
+          <div class="bento-title">Anchor Lock.</div>
+          <p class="bento-desc">
+            When you bring your thumb toward your index finger to click, natural hand tremors usually move the cursor. Anchor Lock freezes your aim in place at the exact millisecond you prepare to click.
+          </p>
+        </div>
+        <div class="bento-visual">
+          <span style="font-size: 3rem;">🎯</span>
+        </div>
+      </div>
+
+      <!-- Bento 3: Native Quartz -->
+      <div class="bento-cell col-6">
+        <div>
+          <div class="bento-eyebrow">Low-Level Performance</div>
+          <div class="bento-title">Quartz &amp; CoreGraphics.</div>
+          <p class="bento-desc">
+            Direct C-level event injection via <code>CGEventCreateMouseEvent</code> and the macOS HID event tap. Smooth, 60fps cursor momentum without application-layer lag.
+          </p>
+        </div>
+        <div class="bento-visual">
+          <span style="font-size: 3rem;">⚡</span>
+        </div>
+      </div>
+
+      <!-- Bento 4: Privacy -->
+      <div class="bento-cell col-6">
+        <div>
+          <div class="bento-eyebrow">Privacy</div>
+          <div class="bento-title">What happens on your Mac stays on your Mac.</div>
+          <p class="bento-desc">
+            All vision inference runs locally on your device via MediaPipe. No video or telemetry ever leaves your computer or touches a cloud server.
+          </p>
+        </div>
+        <div class="bento-visual">
+          <span style="font-size: 3rem;">🛡️</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Complete Gestures Section -->
+  <section class="apple-section" id="gestures">
+    <div class="section-label">Intuitive Gestures</div>
+    <h2 class="section-title">Feels like second nature.</h2>
+    <p class="section-description">
+      No complex sign language. Just the natural movements you already make.
+    </p>
+
+    <div class="gestures-grid">
+      <div class="gesture-card">
+        <div class="gesture-header">
+          <div class="gesture-emoji">👉</div>
+          <span class="gesture-tag">Cursor</span>
+        </div>
+        <h3>Point to Glide</h3>
+        <p>Extend your index finger. Exponential smoothing turns your arm into a laser-sharp pointer across displays.</p>
+      </div>
+
+      <div class="gesture-card">
+        <div class="gesture-header">
+          <div class="gesture-emoji">🤏</div>
+          <span class="gesture-tag">Click</span>
+        </div>
+        <h3>Pinch Tap</h3>
+        <p>Tap your thumb and index together. Instant left-click registration calibrated for precision.</p>
+      </div>
+
+      <div class="gesture-card">
+        <div class="gesture-header">
+          <div class="gesture-emoji">✊</div>
+          <span class="gesture-tag">Drag &amp; Drop</span>
+        </div>
+        <h3>Hold &amp; Drag</h3>
+        <p>Hold the pinch for more than 0.28s to grab windows, move files, or highlight blocks of text.</p>
+      </div>
+
+      <div class="gesture-card">
+        <div class="gesture-header">
+          <div class="gesture-emoji">👌</div>
+          <span class="gesture-tag">Context Menu</span>
+        </div>
+        <h3>Thumb + Middle</h3>
+        <p>Pinch your middle finger to your thumb for an instant native macOS secondary click.</p>
+      </div>
+
+      <div class="gesture-card">
+        <div class="gesture-header">
+          <div class="gesture-emoji">✌️</div>
+          <span class="gesture-tag">Scrolling</span>
+        </div>
+        <h3>Two-Finger Glide</h3>
+        <p>Two fingers up to scroll. Features dynamic momentum and sub-line accumulator for buttery web browsing.</p>
+      </div>
+
+      <div class="gesture-card">
+        <div class="gesture-header">
+          <div class="gesture-emoji">🖐️</div>
+          <span class="gesture-tag">Spaces</span>
+        </div>
+        <h3>Three-Finger Swipe</h3>
+        <p>Swipe 3 fingers left or right to switch full-screen Desktops. Flick upwards for Mission Control.</p>
+      </div>
+
+      <div class="gesture-card">
+        <div class="gesture-header">
+          <div class="gesture-emoji">☀️</div>
+          <span class="gesture-tag">Display</span>
+        </div>
+        <h3>Four Fingers Up</h3>
+        <p>Hold 4 fingers steadily for 0.45s to engage brightness control, then raise or lower your hand.</p>
+      </div>
+
+      <div class="gesture-card">
+        <div class="gesture-header">
+          <div class="gesture-emoji">🤘</div>
+          <span class="gesture-tag">Media Keys</span>
+        </div>
+        <h3>Rock On for Volume</h3>
+        <p>Make the rock sign for 0.35s to engage macOS system volume keys. Raise to turn up, lower to mute.</p>
+      </div>
+
+      <div class="gesture-card">
+        <div class="gesture-header">
+          <div class="gesture-emoji">👍</div>
+          <span class="gesture-tag">Safety</span>
+        </div>
+        <h3>Thumbs Up Pause</h3>
+        <p>Hold thumbs up for 0.5s to freeze or resume all tracking when you need to type on your keyboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Segmented Installation Section -->
+  <section class="apple-section" id="install">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <div class="section-label">Installation</div>
+      <h2 class="section-title">Get AirTouch on your Mac.</h2>
+      <p class="section-description" style="margin-left: auto; margin-right: auto;">
+        Available as a simple 1-click macOS application or as a developer CLI.
+      </p>
+
+      <div class="segmented-switch-wrapper">
+        <div class="segmented-control" role="tablist">
+          <button class="segmented-btn active" id="tab-dmg-btn" onclick="switchTab('dmg')" role="tab">macOS App (.dmg)</button>
+          <button class="segmented-btn" id="tab-terminal-btn" onclick="switchTab('terminal')" role="tab">Developer Terminal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 1: DMG (For Normal Users) -->
+    <div class="tab-pane active" id="pane-dmg">
+      <div class="dmg-showcase">
+        <div class="dmg-drag-graphic">
+          <div class="app-icon-box">🖐️</div>
+          <div class="drag-arrow">➔</div>
+          <div class="app-folder-box">
+            📁
+            <span>Applications</span>
+          </div>
+        </div>
+        <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem;">Plug &amp; Play Simplicity</h3>
+        <p style="color: var(--text-secondary); max-width: 26rem; margin: 0 auto 2rem; font-size: 0.95rem;">
+          Download the disk image, drag AirTouch into your Applications folder, and start touching the air.
+        </p>
+        <a href="https://github.com/Oarabile-Seboka/mac-gesture-mouse/releases" class="btn-apple btn-primary" target="_blank" rel="noopener">
+          Download AirTouch.dmg
+        </a>
+        <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.85rem;">
+          Universal Binary &bull; Apple Silicon &amp; Intel &bull; macOS 12+
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Terminal (For Developers) -->
+    <div class="tab-pane" id="pane-terminal">
+      <div class="terminal-box">
+        <div class="terminal-header">
+          <div class="canvas-traffic-lights">
+            <span class="light red"></span>
+            <span class="light yellow"></span>
+            <span class="light green"></span>
+          </div>
+          <div class="terminal-title">zsh — airtouch</div>
+          <button class="copy-btn" onclick="copyCommands(this)">Copy commands</button>
+        </div>
+        <div class="terminal-content">
+          <span class="comment"># 1. Clone AirTouch from GitHub</span><br>
+          <span class="cmd">git clone</span> https://github.com/Oarabile-Seboka/mac-gesture-mouse.git<br>
+          <span class="cmd">cd</span> mac-gesture-mouse<br><br>
+          <span class="comment"># 2. Run (auto-creates .venv and installs dependencies)</span><br>
+          <span class="cmd">chmod +x</span> run.sh<br>
+          <span class="cmd">./run.sh</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Specs Table -->
+  <section class="apple-section" id="specs">
+    <div class="section-label">Specifications</div>
+    <h2 class="section-title">Technical Specifications</h2>
+
+    <table class="specs-table">
+      <tbody>
+        <tr>
+          <td>System Requirements</td>
+          <td>macOS Monterey 12.0 or later (Recommended: macOS Sonoma or Sequoia).</td>
+        </tr>
+        <tr>
+          <td>Hardware</td>
+          <td>Apple Silicon (M1, M2, M3, M4) or Intel Core processor. Minimum 4GB unified RAM.</td>
+        </tr>
+        <tr>
+          <td>Camera Input</td>
+          <td>Built-in FaceTime HD camera, Studio Display camera, iPhone Continuity Camera, or any 720p+ USB webcam.</td>
+        </tr>
+        <tr>
+          <td>Permissions Required</td>
+          <td>
+            <strong>Camera</strong> (for landmark detection) &amp;<br>
+            <strong>Accessibility</strong> (for Quartz cursor movement &amp; media keys).
+          </td>
+        </tr>
+        <tr>
+          <td>Performance</td>
+          <td>Native 60 FPS event dispatch via Quartz Event Tap. Less than 4% CPU consumption on Apple Silicon.</td>
+        </tr>
+        <tr>
+          <td>Privacy Architecture</td>
+          <td>100% on-device vision processing. Zero network transmission. Zero analytics.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<!-- Apple Footer -->
+<footer class="apple-footer">
+  <div class="container">
+    <div class="footer-notes">
+      1. AirTouch requires Camera and Accessibility permissions enabled in macOS System Settings &gt; Privacy &amp; Security to operate.<br>
+      2. Performance benchmarks based on testing with MacBook Pro (Apple Silicon M-Series) using built-in FaceTime HD camera.<br>
+      3. Mac, macOS, FaceTime, Studio Display, and Apple Silicon are trademarks of Apple Inc., registered in the U.S. and other countries.
+    </div>
+    <div class="footer-bottom">
+      <div>Copyright &copy; 2026 AirTouch. Designed for macOS. Open source software.</div>
+      <div class="footer-links">
+        <a href="https://github.com/Oarabile-Seboka/mac-gesture-mouse" target="_blank" rel="noopener">GitHub</a>
+        <a href="#gestures">Gestures</a>
+        <a href="#specs">Specs</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchTab(tab) {
+    const dmgPane = document.getElementById('pane-dmg');
+    const termPane = document.getElementById('pane-terminal');
+    const dmgBtn = document.getElementById('tab-dmg-btn');
+    const termBtn = document.getElementById('tab-terminal-btn');
+
+    if (tab === 'dmg') {
+      dmgPane.classList.add('active');
+      termPane.classList.remove('active');
+      dmgBtn.classList.add('active');
+      termBtn.classList.remove('active');
+    } else {
+      termPane.classList.add('active');
+      dmgPane.classList.remove('active');
+      termBtn.classList.add('active');
+      dmgBtn.classList.remove('active');
+    }
+  }
+
+  function copyCommands(btn) {
+    const text = "git clone https://github.com/Oarabile-Seboka/mac-gesture-mouse.git\\ncd mac-gesture-mouse\\nchmod +x run.sh\\n./run.sh";
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.innerText;
+      btn.innerText = "Copied!";
+      setTimeout(() => { btn.innerText = orig; }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
