@@ -237,37 +237,32 @@
     margin-top: 0.5rem;
   }
 
-  /* Hero Gesture Vector Illustration */
+  /* Hero Gesture Showcase */
   .hero-gesture-showcase {
     margin: 3.5rem auto 1.5rem;
     position: relative;
-    max-width: 440px;
-    padding: 3rem 1.5rem 1.5rem;
+    max-width: 500px;
     border-radius: 2rem;
-    background: radial-gradient(circle at 50% 25%, rgba(41, 151, 255, 0.16) 0%, rgba(10, 18, 36, 0.5) 60%, transparent 100%);
+    overflow: hidden;
+    background: #000000;
     border: 1px solid var(--border-subtle);
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7), 0 0 50px rgba(41, 151, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(20px);
   }
 
   @media (prefers-color-scheme: light) {
     .hero-gesture-showcase {
-      background: radial-gradient(circle at 50% 25%, rgba(0, 113, 227, 0.1) 0%, rgba(240, 244, 252, 0.8) 60%, transparent 100%);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-      border-color: rgba(0, 0, 0, 0.08);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 113, 227, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
   }
 
   .gesture-hero-img {
     width: 100%;
-    max-width: 290px;
     height: auto;
     display: block;
-    margin: 0 auto;
-    filter: drop-shadow(0 14px 34px rgba(41, 151, 255, 0.35));
+    object-fit: cover;
   }
 
   .status-dot {
@@ -685,9 +680,9 @@
       <span>macOS Sonoma &amp; Sequoia</span>
     </div>
 
-    <!-- Hero Gesture Vector Illustration -->
+    <!-- Hero Gesture Illustration -->
     <div class="hero-gesture-showcase">
-      <img src="airtouch-gesture.svg" alt="AirTouch Contactless Hand Gesture Vector Illustration" class="gesture-hero-img">
+      <img src="hero-gesture.png" alt="AirTouch Contactless Hand Gesture Illustration" class="gesture-hero-img">
     </div>
   </header>
 
