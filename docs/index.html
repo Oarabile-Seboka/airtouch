@@ -241,33 +241,71 @@
   .macbook-canvas {
     margin: 3.5rem auto 1rem;
     position: relative;
-    max-width: 860px;
+    max-width: 880px;
     aspect-ratio: 16 / 10;
-    background: radial-gradient(circle at 50% 30%, #1c1d24 0%, #08090c 80%);
     border-radius: 1.25rem;
     border: 1px solid var(--border-highlight);
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    background: #090a0f;
+    cursor: default;
+    user-select: none;
   }
+
+  /* macOS Wallpaper Atmosphere */
+  .canvas-wallpaper {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 15% 85%, rgba(255, 59, 92, 0.45) 0%, transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(10, 132, 255, 0.6) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(94, 92, 230, 0.45) 0%, transparent 60%),
+      radial-gradient(circle at 70% 80%, rgba(50, 215, 75, 0.25) 0%, transparent 40%),
+      linear-gradient(135deg, #0d1017 0%, #151924 100%);
+    filter: contrast(110%) saturate(135%);
+    transition: filter 0.3s;
+    pointer-events: none;
+  }
+
   @media (prefers-color-scheme: light) {
     .macbook-canvas {
-      background: radial-gradient(circle at 50% 30%, #f0f3fa 0%, #e2e6f0 80%);
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      background: #eef2fa;
+    }
+    .canvas-wallpaper {
+      background: 
+        radial-gradient(circle at 15% 85%, rgba(255, 95, 125, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 85% 15%, rgba(0, 122, 255, 0.45) 0%, transparent 50%),
+        radial-gradient(circle at 50% 45%, rgba(175, 82, 222, 0.35) 0%, transparent 60%),
+        radial-gradient(circle at 75% 80%, rgba(48, 209, 88, 0.2) 0%, transparent 40%),
+        linear-gradient(135deg, #edf1fa 0%, #dbe3f3 100%);
+      filter: contrast(105%) saturate(120%);
     }
   }
 
   .canvas-menu-bar {
+    position: relative;
+    z-index: 10;
     height: 32px;
     background: rgba(0, 0, 0, 0.35);
-    border-bottom: 1px solid var(--border-subtle);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.85);
+  }
+  @media (prefers-color-scheme: light) {
+    .canvas-menu-bar {
+      background: rgba(255, 255, 255, 0.5);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      color: rgba(0, 0, 0, 0.8);
+    }
   }
 
   .canvas-traffic-lights {
@@ -289,79 +327,192 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
 
-  /* Simulated Hand Tracking Skeleton & Cursor */
-  .hand-simulation {
-    position: relative;
-    width: 220px;
-    height: 220px;
+  /* Liquid Click Interactive Stage */
+  .liquid-click-arena {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .tracking-ring {
+  /* Liquid Ripple Waves */
+  .ripple-origin {
     position: absolute;
-    width: 72px;
-    height: 72px;
-    border: 2px dashed var(--apple-blue);
-    border-radius: 50%;
-    animation: rotateRing 14s linear infinite;
-    opacity: 0.8;
+    width: 1px;
+    height: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .anchor-lock-indicator {
+  .liquid-wave {
     position: absolute;
-    width: 24px;
-    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(41, 151, 255, 0.75);
+    box-shadow: 0 0 18px rgba(41, 151, 255, 0.4), inset 0 0 18px rgba(41, 151, 255, 0.25);
+    pointer-events: none;
+    animation: liquidRipple 3s cubic-bezier(0.1, 0.4, 0.2, 1) infinite;
+  }
+  .liquid-wave.w2 { animation-delay: 0.9s; }
+  .liquid-wave.w3 { animation-delay: 1.8s; }
+
+  @keyframes liquidRipple {
+    0% {
+      width: 0px;
+      height: 0px;
+      opacity: 0.95;
+      border-width: 3.5px;
+      transform: scale(0.1);
+    }
+    40% {
+      opacity: 0.7;
+    }
+    100% {
+      width: 360px;
+      height: 360px;
+      opacity: 0;
+      border-width: 1px;
+      transform: scale(1);
+    }
+  }
+
+  /* Anchor Ring */
+  .anchor-target-ring {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
     border: 2px solid var(--apple-green);
-    border-radius: 50%;
-    background: rgba(48, 209, 88, 0.2);
-    box-shadow: 0 0 16px var(--apple-green);
-    animation: pulseLock 2.4s ease-in-out infinite;
+    background: rgba(48, 209, 88, 0.18);
+    box-shadow: 0 0 24px rgba(48, 209, 88, 0.6);
+    animation: anchorBreath 2.6s ease-in-out infinite;
   }
 
-  .virtual-cursor {
+  @keyframes anchorBreath {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.16); opacity: 1; box-shadow: 0 0 32px rgba(48, 209, 88, 0.9); }
+  }
+
+  /* The 3D Glass Stylized Touching Hand/Finger */
+  .touching-hand {
     position: absolute;
-    top: 36%;
-    left: 48%;
-    width: 18px;
-    height: 26px;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+    width: 220px;
+    height: 220px;
+    pointer-events: none;
+    filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.5));
+    animation: fingerTouchMotion 3s ease-in-out infinite;
+    transform-origin: 50% 50%;
+  }
+
+  @keyframes fingerTouchMotion {
+    0%, 100% {
+      transform: translateY(-8px) scale(0.97);
+    }
+    50% {
+      transform: translateY(0px) scale(1);
+    }
+  }
+
+  /* Simulated Native Cursor */
+  .sim-cursor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(2px, 2px);
+    width: 20px;
+    height: 28px;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+    z-index: 15;
+    pointer-events: none;
+  }
+
+  /* macOS Mini Dock */
+  .canvas-dock {
+    position: absolute;
+    bottom: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 18px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    z-index: 20;
+  }
+  @media (prefers-color-scheme: light) {
+    .canvas-dock {
+      background: rgba(255, 255, 255, 0.65);
+      border-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .dock-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    position: relative;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dock-icon:hover { transform: translateY(-4px) scale(1.15); }
+  .dock-icon.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+  }
+  @media (prefers-color-scheme: light) {
+    .dock-icon.active::after { background: #1d1d1f; }
   }
 
   .simulated-hud-pill {
     position: absolute;
-    bottom: 1.5rem;
-    background: rgba(0, 0, 0, 0.7);
+    top: 14px;
+    background: rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(20px);
-    border: 1px solid var(--border-subtle);
-    padding: 0.5rem 1rem;
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.45rem 1rem;
     border-radius: 980px;
-    font-size: 0.78rem;
-    color: var(--text-primary);
+    font-size: 0.76rem;
+    color: #ffffff;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    z-index: 20;
+    pointer-events: none;
+  }
+  @media (prefers-color-scheme: light) {
+    .simulated-hud-pill {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(0, 0, 0, 0.08);
+      color: #1d1d1f;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
   }
 
   .status-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: var(--apple-green);
     box-shadow: 0 0 8px var(--apple-green);
-  }
-
-  @keyframes rotateRing {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  @keyframes pulseLock {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.18); opacity: 1; }
   }
 
   /* Bento Grid Section */
@@ -737,7 +888,7 @@
       <a href="#gestures">Gestures</a>
       <a href="#technology">Technology</a>
       <a href="#specs">Tech Specs</a>
-      <a href="#install" class="nav-btn" onclick="switchTab('dmg')">Download</a>
+      <a href="#install" class="nav-btn">Download</a>
     </div>
   </div>
 </header>
@@ -772,7 +923,9 @@
     </div>
 
     <!-- Interactive Simulated Mac Display -->
-    <div class="macbook-canvas" aria-hidden="true">
+    <div class="macbook-canvas" id="interactiveCanvas" aria-label="Interactive AirTouch preview">
+      <div class="canvas-wallpaper"></div>
+      
       <div class="canvas-menu-bar">
         <div class="canvas-traffic-lights">
           <span class="light red"></span>
@@ -780,19 +933,84 @@
           <span class="light green"></span>
         </div>
         <div>AirTouch Active &bull; 60 FPS</div>
-        <div>Camera ON</div>
+        <div>FaceTime HD Camera &bull; Tracking</div>
       </div>
+
       <div class="canvas-stage">
-        <div class="hand-simulation">
-          <div class="tracking-ring"></div>
-          <div class="anchor-lock-indicator"></div>
-          <svg class="virtual-cursor" viewBox="0 0 24 24" fill="none">
-            <path d="M4 3L19 12L12 14L8 21L4 3Z" fill="white" stroke="black" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-        </div>
         <div class="simulated-hud-pill">
           <span class="status-dot"></span>
-          <span>Anchor Lock Engaged &bull; Ready to Click</span>
+          <span id="hudStatus">💧 Liquid Click &bull; Anchor Lock Engaged</span>
+        </div>
+
+        <div class="liquid-click-arena">
+          <!-- Concentric Liquid Waves -->
+          <div class="ripple-origin" id="rippleOrigin">
+            <div class="liquid-wave w1"></div>
+            <div class="liquid-wave w2"></div>
+            <div class="liquid-wave w3"></div>
+            <div class="anchor-target-ring"></div>
+            
+            <!-- Native macOS Cursor -->
+            <svg class="sim-cursor" viewBox="0 0 24 24" fill="none">
+              <path d="M4 3L19 12L12 14L8 21L4 3Z" fill="white" stroke="black" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <!-- Stylized Hand / Pointing Finger (Liquid Click) -->
+          <svg class="touching-hand" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="fingerGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0A84FF" stop-opacity="0.85"/>
+                <stop offset="50%" stop-color="#5E5CE6" stop-opacity="0.75"/>
+                <stop offset="100%" stop-color="#30D158" stop-opacity="0.9"/>
+              </linearGradient>
+              <linearGradient id="palmGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#2997FF" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#2997FF" stop-opacity="0.05"/>
+              </linearGradient>
+              <filter id="glowBlur" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="8" result="blur"/>
+                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+              </filter>
+            </defs>
+            
+            <!-- Subtle Hand Palm Silhouette in Background -->
+            <path d="M60 140 C50 120 40 100 55 80 C70 60 90 75 100 95 C110 75 130 65 145 85 C155 100 150 125 140 145 C130 165 125 195 100 210 C75 195 70 165 60 140 Z" fill="url(#palmGlow)" />
+            
+            <!-- Sleek Forefinger / Index pointing down to center -->
+            <g filter="url(#glowBlur)">
+              <!-- Index Finger Shaft -->
+              <path d="M92 40 C92 25 108 25 108 40 L108 115 C108 122 92 122 92 115 Z" fill="url(#fingerGlass)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+              <!-- Fingertip Tap Joint -->
+              <circle cx="100" cy="118" r="9" fill="#2997FF" stroke="#ffffff" stroke-width="2"/>
+              <circle cx="100" cy="118" r="4" fill="#ffffff"/>
+            </g>
+
+            <!-- Light particles radiating from tip -->
+            <circle cx="85" cy="110" r="2" fill="#30D158" opacity="0.8"/>
+            <circle cx="118" cy="112" r="2.5" fill="#2997FF" opacity="0.8"/>
+            <circle cx="100" cy="132" r="2" fill="#5E5CE6" opacity="0.7"/>
+          </svg>
+        </div>
+
+        <!-- macOS Mini Dock -->
+        <div class="canvas-dock">
+          <!-- Finder -->
+          <div class="dock-icon" style="background: linear-gradient(135deg, #1A85FF, #48C6EF);" title="Finder">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M9 9h.01M15 9h.01M8 15s1.5 2 4 2 4-2 4-2"/></svg>
+          </div>
+          <!-- Safari -->
+          <div class="dock-icon" style="background: linear-gradient(135deg, #2E55FA, #00C6FF);" title="Safari">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          </div>
+          <!-- AirTouch Active -->
+          <div class="dock-icon active" style="background: linear-gradient(135deg, #0A84FF, #5E5CE6); box-shadow: 0 0 16px var(--apple-blue-glow);" title="AirTouch">
+            <span style="font-size: 1.15rem; line-height: 1;">🖐️</span>
+          </div>
+          <!-- System Settings -->
+          <div class="dock-icon" style="background: linear-gradient(135deg, #8E8E93, #636366);" title="System Settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
         </div>
       </div>
     </div>
@@ -989,14 +1207,9 @@
         <p style="color: var(--text-secondary); max-width: 26rem; margin: 0 auto 2rem; font-size: 0.95rem;">
           Download the disk image, drag AirTouch into your Applications folder, and start touching the air.
         </p>
-        <a href="https://github.com/Oarabile-Seboka/airtouch/releases/download/v1.0.0-beta/AirTouch.dmg" class="btn-apple btn-primary" target="_blank" rel="noopener">
+        <a href="https://github.com/Oarabile-Seboka/airtouch/releases" class="btn-apple btn-primary" target="_blank" rel="noopener">
           Download AirTouch.dmg
         </a>
-        <div style="margin-top: 0.6rem;">
-          <a href="https://github.com/Oarabile-Seboka/airtouch/releases/tag/v1.0.0-beta" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--apple-blue); text-decoration: underline;">
-            View Release Notes (v1.0.0 Beta)
-          </a>
-        </div>
         <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.85rem;">
           Universal Binary &bull; Apple Silicon &amp; Intel &bull; macOS 12+
         </div>
@@ -1111,6 +1324,42 @@
       const orig = btn.innerText;
       btn.innerText = "Copied!";
       setTimeout(() => { btn.innerText = orig; }, 2000);
+    });
+  }
+
+  // Interactive Liquid Click on Showcase Canvas
+  const canvas = document.getElementById('interactiveCanvas');
+  const hudStatus = document.getElementById('hudStatus');
+  const rippleOrigin = document.getElementById('rippleOrigin');
+
+  if (canvas && hudStatus) {
+    canvas.addEventListener('click', (e) => {
+      // Temporarily highlight status HUD
+      hudStatus.innerText = "💧 Liquid Click Dispatched • 0.1ms";
+      hudStatus.style.color = "#30d158";
+
+      // Spawn temporary ripple
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const clickRipple = document.createElement('div');
+      clickRipple.className = 'liquid-wave';
+      clickRipple.style.left = `${x}px`;
+      clickRipple.style.top = `${y}px`;
+      clickRipple.style.transform = 'translate(-50%, -50%)';
+      clickRipple.style.borderColor = '#30d158';
+      clickRipple.style.boxShadow = '0 0 24px rgba(48, 209, 88, 0.6)';
+      canvas.appendChild(clickRipple);
+
+      setTimeout(() => {
+        clickRipple.remove();
+      }, 2800);
+
+      setTimeout(() => {
+        hudStatus.innerText = "💧 Liquid Click • Anchor Lock Engaged";
+        hudStatus.style.color = "";
+      }, 1800);
     });
   }
 </script>
