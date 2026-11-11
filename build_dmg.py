@@ -108,9 +108,9 @@ def build_dmg():
         "--noconfirm",
         "--windowed",
         "--name", "AirTouch",
+        "--collect-all", "mediapipe",
         "--add-data", f"{os.path.join(BASE_DIR, 'hand_landmarker.task')}:.",
         "--osx-bundle-identifier", "com.oarabile.airtouch",
-        f"--osx-entitlements-file={plist_path}" if os.path.exists(plist_path) else "",
     ]
     if os.path.exists(icns_path):
         cmd.extend(["--icon", icns_path])
@@ -137,7 +137,11 @@ def build_dmg():
         os.makedirs(res_dir, exist_ok=True)
         shutil.copy2(icns_path, os.path.join(res_dir, "AirTouch.icns"))
 
-    print("✅ AirTouch.app created and patched successfully!")
+    # Re-sign the app bundle so the modified Info.plist does not invalidate the signature
+    print("🔏 Re-signing AirTouch.app with ad-hoc signature...")
+    subprocess.run(["codesign", "--force", "--deep", "--sign", "-", app_path], check=True)
+
+    print("✅ AirTouch.app created, patched, and signed successfully!")
 
     # Prepare DMG folder
     dmg_staging = os.path.join(BASE_DIR, "dmg_staging")
