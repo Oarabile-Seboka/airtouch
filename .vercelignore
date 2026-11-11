@@ -1,0 +1,7 @@
+requirements.txt
+*.py
+*.task
+*.icns
+*.plist
+*.spec
+run.sh
