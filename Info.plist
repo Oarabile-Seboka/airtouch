@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>AirTouch</string>
+    <key>CFBundleDisplayName</key>
+    <string>AirTouch</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.oarabile.airtouch</string>
+    <key>CFBundleVersion</key>
+    <string>1.0.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleIconFile</key>
+    <string>AirTouch.icns</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>NSCameraUsageDescription</key>
+    <string>AirTouch uses your camera for contactless hand gesture tracking and cursor control. Video stays 100% on-device.</string>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>AirTouch requires accessibility control to dispatch native cursor clicks and media keys.</string>
+</dict>
+</plist>

@@ -21,3 +21,11 @@ __pycache__/
 .vscode/
 .idea/
 
+
+# Packaging & Build Artifacts
+build/
+dist/
+*.spec
+*.dmg
+dmg_staging/
+AppIcon.iconset/

@@ -72,7 +72,12 @@ PINCH_RIGHT_DIST = 0.058
 # Thumbs Up Toggle Settings
 THUMBS_UP_HOLD_TIME = 0.55
 
-MODEL_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "hand_landmarker.task")
+if getattr(sys, 'frozen', False):
+    BASE_DIR = getattr(sys, '_MEIPASS', os.path.dirname(sys.executable))
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+MODEL_FILE = os.path.join(BASE_DIR, "hand_landmarker.task")
 MODEL_URL = "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"
 
 HAND_CONNECTIONS = [
