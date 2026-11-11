@@ -989,7 +989,7 @@
         <p style="color: var(--text-secondary); max-width: 26rem; margin: 0 auto 2rem; font-size: 0.95rem;">
           Download the disk image, drag AirTouch into your Applications folder, and start touching the air.
         </p>
-        <a href="https://github.com/Oarabile-Seboka/mac-gesture-mouse/releases" class="btn-apple btn-primary" target="_blank" rel="noopener">
+        <a href="https://github.com/Oarabile-Seboka/airtouch/releases" class="btn-apple btn-primary" target="_blank" rel="noopener">
           Download AirTouch.dmg
         </a>
         <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.85rem;">
@@ -1012,8 +1012,8 @@
         </div>
         <div class="terminal-content">
           <span class="comment"># 1. Clone AirTouch from GitHub</span><br>
-          <span class="cmd">git clone</span> https://github.com/Oarabile-Seboka/mac-gesture-mouse.git<br>
-          <span class="cmd">cd</span> mac-gesture-mouse<br><br>
+          <span class="cmd">git clone</span> https://github.com/Oarabile-Seboka/airtouch.git<br>
+          <span class="cmd">cd</span> airtouch<br><br>
           <span class="comment"># 2. Run (auto-creates .venv and installs dependencies)</span><br>
           <span class="cmd">chmod +x</span> run.sh<br>
           <span class="cmd">./run.sh</span>
@@ -1072,7 +1072,7 @@
     <div class="footer-bottom">
       <div>Copyright &copy; 2026 AirTouch. Designed for macOS. Open source software.</div>
       <div class="footer-links">
-        <a href="https://github.com/Oarabile-Seboka/mac-gesture-mouse" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/Oarabile-Seboka/airtouch" target="_blank" rel="noopener">GitHub</a>
         <a href="#gestures">Gestures</a>
         <a href="#specs">Specs</a>
       </div>
@@ -1101,7 +1101,7 @@
   }
 
   function copyCommands(btn) {
-    const text = "git clone https://github.com/Oarabile-Seboka/mac-gesture-mouse.git\\ncd mac-gesture-mouse\\nchmod +x run.sh\\n./run.sh";
+    const text = "git clone https://github.com/Oarabile-Seboka/airtouch.git\\ncd airtouch\\nchmod +x run.sh\\n./run.sh";
     navigator.clipboard.writeText(text).then(() => {
       const orig = btn.innerText;
       btn.innerText = "Copied!";

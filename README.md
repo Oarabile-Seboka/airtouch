@@ -15,8 +15,8 @@ Control your entire Mac cursor, click, drag, scroll, slide spaces, adjust bright
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Oarabile-Seboka/mac-gesture-mouse.git
-cd mac-gesture-mouse
+git clone https://github.com/Oarabile-Seboka/airtouch.git
+cd airtouch
 
 # 2. Run AirTouch (automatically sets up .venv and installs dependencies)
 chmod +x run.sh
