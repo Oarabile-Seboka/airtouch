@@ -4,14 +4,22 @@ Control your entire Mac cursor, click, drag, scroll, slide spaces, adjust bright
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Installation & Quick Start
 
-### Prerequisites
-* macOS 12+ (Apple Silicon or Intel)
-* Built-in webcam or external camera
-* Python 3.10+ (if running from source)
+### 📦 Option 1: Standalone macOS App (.dmg)
+Download the standalone disk image for Apple Silicon & Intel Macs:
 
-### Installation & Run
+[**⬇️ Download AirTouch.dmg (v1.0.0 Beta)**](https://github.com/Oarabile-Seboka/airtouch/releases/download/v1.0.0-beta/AirTouch.dmg)
+
+1. Open `AirTouch.dmg` and drag **AirTouch** into your `/Applications` folder.
+2. Launch AirTouch from Applications.
+3. *macOS Gatekeeper notice*: On first launch, macOS may prompt that the developer cannot be verified. Simply **Right-Click (or Control-Click) AirTouch.app > Open**, or go to **System Settings > Privacy & Security** and click **Open Anyway**.  
+   *(Or run `xattr -cr /Applications/AirTouch.app` in Terminal).*
+4. Grant **Camera** and **Accessibility** permissions when prompted.
+
+---
+
+### 💻 Option 2: Run from Source (Terminal)
 
 ```bash
 # 1. Clone the repository
@@ -60,8 +68,4 @@ While the camera preview window is focused:
 * **`q`** : Quit AirTouch
 * **`h`** : Toggle HUD camera preview window on/off
 
----
 
-## 📦 For Non-Technical Users (.app / .dmg)
-
-A standalone 1-click macOS `.dmg` installer is currently in preparation. Non-technical users will be able to simply download `AirTouch.dmg`, drag it into `/Applications`, and run it directly from the Menu Bar without ever touching the Terminal.

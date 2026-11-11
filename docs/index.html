@@ -669,7 +669,7 @@
       <a href="#gestures">Gestures</a>
       <a href="#technology">Technology</a>
       <a href="#specs">Tech Specs</a>
-      <a href="#install" class="nav-btn">Get Started</a>
+      <a href="https://github.com/Oarabile-Seboka/airtouch/releases/download/v1.0.0-beta/AirTouch.dmg" class="nav-btn">Download .dmg</a>
     </div>
   </div>
 </header>
@@ -687,8 +687,12 @@
     </p>
 
     <div class="hero-ctas">
-      <a href="#install" class="btn-apple btn-primary">
-        <span>&gt;_</span> Get Started in Terminal
+      <a href="https://github.com/Oarabile-Seboka/airtouch/releases/download/v1.0.0-beta/AirTouch.dmg" class="btn-apple btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 6px;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+        Download AirTouch.dmg
+      </a>
+      <a href="#install" class="btn-apple btn-secondary">
+        <span>&gt;_</span> Terminal Quickstart
       </a>
       <a href="https://github.com/Oarabile-Seboka/airtouch" class="btn-apple btn-secondary" target="_blank" rel="noopener">
         View on GitHub
@@ -871,36 +875,85 @@
   <!-- Installation Section -->
   <section class="apple-section" id="install">
     <div style="text-align: center; margin-bottom: 2.5rem;">
-      <div class="section-label">Quick Start</div>
-      <h2 class="section-title">Run AirTouch on your Mac.</h2>
+      <div class="section-label">Installation</div>
+      <h2 class="section-title">Get AirTouch on your Mac.</h2>
       <p class="section-description" style="margin-left: auto; margin-right: auto;">
-        Clone the repository and launch directly with your Terminal. Setup is fully automated.
+        Download the standalone disk image or run directly from the command line.
       </p>
+
+      <!-- Segmented Switcher -->
+      <div class="segmented-tabs">
+        <button class="segmented-btn active" id="tab-dmg-btn" onclick="switchTab('dmg')">
+          macOS App (.dmg)
+        </button>
+        <button class="segmented-btn" id="tab-terminal-btn" onclick="switchTab('terminal')">
+          Terminal &amp; Git
+        </button>
+      </div>
     </div>
 
-    <!-- Terminal Box -->
-    <div class="terminal-box">
-      <div class="terminal-header">
-        <div class="canvas-traffic-lights">
-          <span class="light red"></span>
-          <span class="light yellow"></span>
-          <span class="light green"></span>
+    <!-- DMG Installer Tab -->
+    <div class="tab-pane active" id="pane-dmg">
+      <div class="dmg-showcase">
+        <div class="dmg-drag-graphic">
+          <div class="app-icon-box">
+            <img src="app-icon.png" alt="AirTouch App Icon" style="width: 100%; height: 100%; border-radius: 20px; object-fit: cover;">
+          </div>
+          <div class="drag-arrow">➔</div>
+          <div class="app-folder-box">
+            📁
+            <span>Applications</span>
+          </div>
         </div>
-        <div class="terminal-title">zsh — airtouch</div>
-        <button class="copy-btn" onclick="copyCommands(this)">Copy commands</button>
-      </div>
-      <div class="terminal-content">
-        <span class="comment"># 1. Clone AirTouch from GitHub</span><br>
-        <span class="cmd">git clone</span> https://github.com/Oarabile-Seboka/airtouch.git<br>
-        <span class="cmd">cd</span> airtouch<br><br>
-        <span class="comment"># 2. Run (automatically installs virtualenv &amp; dependencies)</span><br>
-        <span class="cmd">chmod +x</span> run.sh<br>
-        <span class="cmd">./run.sh</span>
+
+        <p style="font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem;">
+          Drag AirTouch into your Applications folder
+        </p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; max-width: 480px; margin: 0 auto 2rem;">
+          Universal binary for Apple Silicon (M1/M2/M3/M4) &amp; Intel Macs running macOS Monterey, Sonoma, or Sequoia.
+        </p>
+
+        <a href="https://github.com/Oarabile-Seboka/airtouch/releases/download/v1.0.0-beta/AirTouch.dmg" class="btn-apple btn-primary" style="display: inline-flex; font-size: 1rem; padding: 0.85rem 2rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+          Download AirTouch.dmg (v1.0.0 Beta)
+        </a>
+
+        <!-- Open Source Gatekeeper Note -->
+        <div style="margin-top: 2rem; padding: 1.25rem; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: 12px; font-size: 0.85rem; color: var(--text-secondary); text-align: left; max-width: 540px; margin-left: auto; margin-right: auto;">
+          <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem; display: flex; align-items: center; gap: 6px;">
+            <span>🛡️</span> Note for macOS Gatekeeper:
+          </div>
+          Because AirTouch is independent open-source software, on first launch macOS may show a developer verification notice. Simply <strong>Right-Click (Control-Click) AirTouch.app &gt; Open</strong>, or go to <strong>System Settings &gt; Privacy &amp; Security</strong> and click <strong>Open Anyway</strong>.<br>
+          <span style="font-size: 0.78rem; color: var(--text-tertiary); display: block; margin-top: 6px;">Alternatively, run in Terminal: <code>xattr -cr /Applications/AirTouch.app</code></span>
+        </div>
       </div>
     </div>
 
-    <div style="text-align: center; margin-top: 1.5rem; font-size: 0.82rem; color: var(--text-tertiary);">
-      Press <code>q</code> to quit in the preview window &bull; Press <code>h</code> to toggle HUD overlay
+    <!-- Terminal Tab -->
+    <div class="tab-pane" id="pane-terminal">
+      <div class="terminal-box">
+        <div class="terminal-header">
+          <div class="canvas-traffic-lights">
+            <span class="light red"></span>
+            <span class="light yellow"></span>
+            <span class="light green"></span>
+          </div>
+          <div class="terminal-title">zsh — airtouch</div>
+          <button class="copy-btn" onclick="copyCommands(this)">Copy commands</button>
+        </div>
+        <div class="terminal-content">
+          <span class="comment"># 1. Clone AirTouch from GitHub</span><br>
+          <span class="cmd">git clone</span> https://github.com/Oarabile-Seboka/airtouch.git<br>
+          <span class="cmd">cd</span> airtouch<br><br>
+          <span class="comment"># 2. Run (automatically installs virtualenv &amp; dependencies)</span><br>
+          <span class="cmd">chmod +x</span> run.sh<br>
+          <span class="cmd">./run.sh</span>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.82rem; color: var(--text-tertiary);">
+        Press <code>q</code> to quit in the preview window &bull; Press <code>h</code> to toggle HUD overlay
+      </div>
     </div>
   </section>
 
