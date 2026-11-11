@@ -1,0 +1,26 @@
+{
+  "name": "primary",
+  "version": "1.0.0",
+  "description": "Control your entire Mac cursor, click, drag, scroll, slide spaces, adjust brightness, and change volume using camera hand gestures — completely touch-free! Built with **Python**, **OpenCV**, **Google MediaPipe**, and native macOS **Quartz / AppKit / PyAutoGUI**.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oarabile-Seboka/airtouch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oarabile-Seboka/airtouch/issues"
+  },
+  "homepage": "https://github.com/Oarabile-Seboka/airtouch#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
