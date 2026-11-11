@@ -68,4 +68,10 @@ While the camera preview window is focused:
 * **`q`** : Quit AirTouch
 * **`h`** : Toggle HUD camera preview window on/off
 
+---
+
+## 👨‍💻 Author
+
+Designed & developed by **[Oarabile Seboka](https://www.seboka.co.za/)**.
+
 
