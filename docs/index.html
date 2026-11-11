@@ -237,38 +237,37 @@
     margin-top: 0.5rem;
   }
 
-  /* Hero Gesture Visual Showcase */
+  /* Hero Gesture Vector Illustration */
   .hero-gesture-showcase {
     margin: 3.5rem auto 1.5rem;
     position: relative;
-    max-width: 540px;
+    max-width: 440px;
+    padding: 3rem 1.5rem 1.5rem;
     border-radius: 2rem;
-    background: radial-gradient(circle at 46% 32%, #0a1f44 0%, #030814 65%, #000000 100%);
-    border: 1px solid rgba(41, 151, 255, 0.25);
-    box-shadow: 
-      0 24px 80px rgba(0, 0, 0, 0.7),
-      0 0 60px rgba(10, 132, 255, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    overflow: hidden;
+    background: radial-gradient(circle at 50% 25%, rgba(41, 151, 255, 0.16) 0%, rgba(10, 18, 36, 0.5) 60%, transparent 100%);
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(20px);
   }
 
   @media (prefers-color-scheme: light) {
     .hero-gesture-showcase {
-      box-shadow: 
-        0 24px 70px rgba(0, 0, 0, 0.15),
-        0 0 50px rgba(0, 113, 227, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      background: radial-gradient(circle at 50% 25%, rgba(0, 113, 227, 0.1) 0%, rgba(240, 244, 252, 0.8) 60%, transparent 100%);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border-color: rgba(0, 0, 0, 0.08);
     }
   }
 
   .gesture-hero-img {
     width: 100%;
+    max-width: 290px;
     height: auto;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
     display: block;
-    mix-blend-mode: screen;
-    filter: contrast(110%) saturate(120%);
+    margin: 0 auto;
+    filter: drop-shadow(0 14px 34px rgba(41, 151, 255, 0.35));
   }
 
   .status-dot {
@@ -686,9 +685,9 @@
       <span>macOS Sonoma &amp; Sequoia</span>
     </div>
 
-    <!-- Hero Gesture Visual -->
+    <!-- Hero Gesture Vector Illustration -->
     <div class="hero-gesture-showcase">
-      <img src="hero-gesture.jpg" alt="AirTouch Contactless Hand Gesture" class="gesture-hero-img">
+      <img src="airtouch-gesture.svg" alt="AirTouch Contactless Hand Gesture Vector Illustration" class="gesture-hero-img">
     </div>
   </header>
 
