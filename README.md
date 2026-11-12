@@ -1,5 +1,8 @@
 # AirTouch 🖐️✨
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-macOS-black.svg?logo=apple&logoColor=white)](https://github.com/Oarabile-Seboka/airtouch)
+
 Control your entire Mac cursor, click, drag, scroll, slide spaces, adjust brightness, and change volume using camera hand gestures — completely touch-free! Built with **Python**, **OpenCV**, **Google MediaPipe**, and native macOS **Quartz / AppKit / PyAutoGUI**.
 
 ---
@@ -73,5 +76,11 @@ While the camera preview window is focused:
 ## 👨‍💻 Author
 
 Designed & developed by **[Oarabile Seboka](https://www.seboka.co.za/)**.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE) — see the [LICENSE](LICENSE) file for details.
 
 
